@@ -10,10 +10,12 @@ public class AvatarController : MonoBehaviour
     public float initialCamDist;
     public float heightOffset;
     public float moveSpeed;
+    public float jumpSpeed;
 
     private float camRotX = 0;
     private float camRotY = 0;
     private float camDist;
+    private float yvel = 0;
 
     private CharacterController cc;
     private Animator animator;
@@ -33,8 +35,26 @@ public class AvatarController : MonoBehaviour
 
     private void Update()
     {
-        cc.SimpleMove(camera.forward * Input.GetAxis("ForeBack") * Time.deltaTime * moveSpeed
-                    + camera.right * Input.GetAxis("Horizontal") * Time.deltaTime * moveSpeed);
+        if(cc.isGrounded)
+        {
+            yvel = 0;
+        }
+        else if (Input.GetKeyDown(KeyCode.Space))
+        {
+            yvel = jumpSpeed;
+            animator.SetTrigger("Jump");
+        }
+        else
+        {
+            yvel += Time.deltaTime * Physics.gravity.y;
+        }
+        
+
+        Vector3 moveVec = (camera.forward * Input.GetAxis("ForeBack")
+              + camera.right * Input.GetAxis("Horizontal")).normalized * Time.deltaTime * moveSpeed;
+        moveVec.y = yvel;
+        cc.Move(moveVec);
+        
         Vector3 lookDir = cc.velocity;
         lookDir.y = 0;
         transform.forward = Vector3.RotateTowards(transform.forward, lookDir.normalized, 1000f, 1000f);
@@ -46,9 +66,7 @@ public class AvatarController : MonoBehaviour
         {
             animator.SetBool("Walking", false);
         }
-        //transform.position += transform.forward * Input.GetAxis("ForeBack") * Time.deltaTime * moveSpeed
-        //                    + transform.right * Input.GetAxis("Horizontal") * Time.deltaTime * moveSpeed;
-
+        
         camera.position = transform.position + Vector3.up * heightOffset;
 
         if (Input.GetMouseButton(1))

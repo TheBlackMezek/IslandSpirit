@@ -667,7 +667,8 @@ MonoBehaviour:
   lookSensitivity: 200
   initialCamDist: 5
   heightOffset: 1.5
-  moveSpeed: 200
+  moveSpeed: 10
+  jumpSpeed: 3
 --- !u!1 &1387133216
 GameObject:
   m_ObjectHideFlags: 0
@@ -873,7 +874,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lookSensitivity: 100
   moveSpeed: 20
-  terrainRaiseSpeed: 0.1
+  terrainRaiseSpeed: 0.02
 --- !u!4 &2055585194
 Transform:
   m_ObjectHideFlags: 0
