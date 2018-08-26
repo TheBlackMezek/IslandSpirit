@@ -8,6 +8,7 @@ public class GodController : MonoBehaviour {
     public float moveSpeed;
 
     public float terrainRaiseSpeed;
+    public float terrainRaiseRadius;
 
     private float xRotOffset = 0;
     private Terrain terrain;
@@ -33,9 +34,11 @@ public class GodController : MonoBehaviour {
                 v3pos.z /= terrain.terrainData.size.z;
                 Vector2 terrainPos = new Vector2(v3pos.x * terrain.terrainData.heightmapWidth,
                                                  v3pos.z * terrain.terrainData.heightmapHeight);
-                float[,] heights = terrain.terrainData.GetHeights((int)terrainPos.x, (int)terrainPos.y, 1, 1);
-                heights[0, 0] += terrainRaiseSpeed * Time.deltaTime;
-                terrain.terrainData.SetHeights((int)terrainPos.x, (int)terrainPos.y, heights);
+                //float[,] heights = terrain.terrainData.GetHeights((int)terrainPos.x, (int)terrainPos.y, 1, 1);
+                //heights[0, 0] += terrainRaiseSpeed * Time.deltaTime;
+                //terrain.terrainData.SetHeights((int)terrainPos.x, (int)terrainPos.y, heights);
+                RaiseTerrainCircleLerpBrush((int)terrainPos.x, (int)terrainPos.y, terrainRaiseRadius,
+                                            Time.deltaTime * terrainRaiseSpeed);
             }
         }
 
@@ -56,6 +59,34 @@ public class GodController : MonoBehaviour {
         transform.position += transform.forward * Input.GetAxis("ForeBack") * Time.deltaTime * moveSpeed
                             + transform.right * Input.GetAxis("Horizontal") * Time.deltaTime * moveSpeed
                             + transform.up * Input.GetAxis("Vertical") * Time.deltaTime * moveSpeed;
+    }
+
+    private void RaiseTerrainCircleLerpBrush(int centerX, int centerY, float radius, float raiseAmt)
+    {
+        int radiusInt = (int)Mathf.Ceil(radius);
+        int diameter = radiusInt * 2 + 1;
+        int gridX = centerX - radiusInt;
+        int gridY = centerY - radiusInt;
+        Vector2 loopCenter = new Vector2(radiusInt + 1, radiusInt + 1);
+
+        float[,] heights = terrain.terrainData.GetHeights(gridX, gridY, diameter, diameter);
+
+        Vector2 loopPos;
+        for(int x = 0; x < diameter; ++x)
+        {
+            loopPos.x = x;
+            for (int y = 0; y < diameter; ++y)
+            {
+                loopPos.y = y;
+                float dist = Vector2.Distance(loopPos, loopCenter);
+                if (dist <= radius)
+                {
+                    heights[x, y] += Mathf.Lerp(0, raiseAmt, Mathf.InverseLerp(radius, 0, dist));
+                }
+            }
+        }
+
+        terrain.terrainData.SetHeights(gridX, gridY, heights);
     }
 
 }
