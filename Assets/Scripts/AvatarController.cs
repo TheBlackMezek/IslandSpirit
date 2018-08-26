@@ -57,8 +57,11 @@ public class AvatarController : MonoBehaviour
         
         Vector3 lookDir = cc.velocity;
         lookDir.y = 0;
-        transform.forward = Vector3.RotateTowards(transform.forward, lookDir.normalized, 1000f, 1000f);
         if(lookDir.magnitude > 0)
+        {
+            transform.forward = Vector3.RotateTowards(transform.forward, lookDir.normalized, 1000f, 1000f);
+        }
+        if (lookDir.magnitude > 0)
         {
             animator.SetBool("Walking", true);
         }
