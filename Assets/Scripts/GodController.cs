@@ -94,23 +94,47 @@ public class GodController : MonoBehaviour {
     {
         int radiusInt = (int)Mathf.Ceil(radius);
         int diameter = radiusInt * 2 + 1;
+        int lenX = diameter;
+        int lenY = diameter;
+
         int gridX = centerX - radiusInt;
+        if(gridX < 0)
+        {
+            lenX += gridX;
+            gridX = 0;
+        }
+        if(gridX + lenX >= terrain.terrainData.heightmapWidth)
+        {
+            lenX = terrain.terrainData.heightmapWidth - gridX - 1;
+        }
         int gridY = centerY - radiusInt;
-        Vector2 loopCenter = new Vector2(radiusInt + 1, radiusInt + 1);
+        if (gridY < 0)
+        {
+            lenY += gridY;
+            gridY = 0;
+        }
+        if (gridY + lenY >= terrain.terrainData.heightmapHeight)
+        {
+            lenY = terrain.terrainData.heightmapHeight - gridY - 1;
+        }
+        
+        Vector2 loopCenter = new Vector2(centerX, centerY);
 
-        float[,] heights = terrain.terrainData.GetHeights(gridX, gridY, diameter, diameter);
 
+
+        float[,] heights = terrain.terrainData.GetHeights(gridX, gridY, lenX, lenY);
+        
         Vector2 loopPos;
-        for(int x = 0; x < diameter; ++x)
+        for(int x = gridX; x < gridX + lenX; ++x)
         {
             loopPos.x = x;
-            for (int y = 0; y < diameter; ++y)
+            for (int y = gridY; y < gridY + lenY; ++y)
             {
                 loopPos.y = y;
                 float dist = Vector2.Distance(loopPos, loopCenter);
                 if (dist <= radius)
                 {
-                    heights[x, y] += Mathf.Lerp(0, raiseAmt, Mathf.InverseLerp(radius, 0, dist));
+                    heights[y - gridY, x - gridX] += Mathf.Lerp(0, raiseAmt, Mathf.InverseLerp(radius, 0, dist));
                 }
             }
         }
