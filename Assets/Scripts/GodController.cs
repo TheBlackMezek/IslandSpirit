@@ -41,7 +41,6 @@ public class GodController : MonoBehaviour {
 
             targetCircle.gameObject.SetActive(true);
             float tHeight = terrain.SampleHeight(hit.point);
-            Debug.Log(tHeight);
             targetCircle.position = new Vector3(hit.point.x, tHeight + targetCircleFloatHeight, hit.point.z);
             targetCircle.eulerAngles = Vector3.zero;
             targetCircle.localScale = new Vector3(terrainRaiseRadius, 1, terrainRaiseRadius);
