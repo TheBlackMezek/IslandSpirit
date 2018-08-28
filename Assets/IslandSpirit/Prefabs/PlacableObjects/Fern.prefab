@@ -21,7 +21,8 @@ GameObject:
   - component: {fileID: 4040701738450914}
   - component: {fileID: 33732542293488970}
   - component: {fileID: 23485012547968646}
-  m_Layer: 0
+  - component: {fileID: 135618704874247224}
+  m_Layer: 10
   m_Name: ferns
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,7 +37,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4779354143592172}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Fern
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -63,7 +64,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1706852783796436}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 39.49, y: 0, z: 82.16}
+  m_LocalPosition: {x: 7.9577484, y: 0.15680604, z: 20.038345}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4040701738450914}
@@ -111,3 +112,15 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1509236622863632}
   m_Mesh: {fileID: 4300000, guid: dad0b53bfba5bf148b12cdfa48770c8a, type: 3}
+--- !u!135 &135618704874247224
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1509236622863632}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1
+  m_Center: {x: 0.09619903, y: -0.5, z: 0.032323595}

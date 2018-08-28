@@ -49,6 +49,8 @@ public class GTPlaceObject : GodToolAbstract {
             GameObject obj = Instantiate(placablePrefab);
             obj.transform.position = ghost.transform.position;
             gc.AddPlacedObject(obj);
+            particleSystem.transform.position = ghost.transform.position;
+            particleSystem.Play();
         }
     }
 

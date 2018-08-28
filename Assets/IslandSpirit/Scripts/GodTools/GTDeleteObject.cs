@@ -11,6 +11,8 @@ public class GTDeleteObject : GodToolAbstract {
         if(Physics.Raycast(ray.origin, ray.direction, out hit, 10000f, LayerMask.GetMask("PlacableObject")))
         {
             Destroy(hit.collider.transform.root.gameObject);
+            particleSystem.transform.position = data.physicalHitPoint;
+            particleSystem.Play();
         }
     }
 
