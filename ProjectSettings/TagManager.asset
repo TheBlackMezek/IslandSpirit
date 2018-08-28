@@ -15,8 +15,8 @@ TagManager:
   - 
   - Terrain
   - TerrainFloor
-  - 
-  - 
+  - PlacableObject
+  - Ghost
   - 
   - 
   - 

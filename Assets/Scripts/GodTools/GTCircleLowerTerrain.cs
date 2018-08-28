@@ -8,7 +8,7 @@ public class GTCircleLowerTerrain : GodToolAbstract
 
     
 
-    public override void OnMouseHeld(int button, TerrainHitData data, float dt, float toolRadius)
+    public override void OnMouseHeld(int button, TerrainHitData data, float dt, float toolRadius, GameObject placablePrefab)
     {
         if (button == 0)
         {
@@ -68,6 +68,8 @@ public class GTCircleLowerTerrain : GodToolAbstract
         }
 
         data.terrain.terrainData.SetHeights(gridX, gridY, heights);
+
+        gc.UpdatePlacedObjectPositions(gridX, gridY, lenX, lenY);
     }
 
 }
