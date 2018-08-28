@@ -5,19 +5,18 @@ using UnityEngine;
 public class GTCircleLowerTerrain : GodToolAbstract
 {
     public float speed;
-    public float radius;
 
+    
 
-
-    public override void OnMouseHeld(int button, TerrainHitData data, float dt)
+    public override void OnMouseHeld(int button, TerrainHitData data, float dt, float toolRadius)
     {
         if (button == 0)
         {
-            LowerTerrainCircleLerpBrush(data, dt);
+            LowerTerrainCircleLerpBrush(data, dt, toolRadius);
         }
     }
 
-    private void LowerTerrainCircleLerpBrush(TerrainHitData data, float dt)
+    private void LowerTerrainCircleLerpBrush(TerrainHitData data, float dt, float radius)
     {
         int centerX = (int)data.floorHitPos.x;
         int centerY = (int)data.floorHitPos.y;

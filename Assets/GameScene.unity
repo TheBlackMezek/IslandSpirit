@@ -505,7 +505,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toolName: Lower Terrain
   speed: 0.02
-  radius: 5
 --- !u!1 &226347310
 GameObject:
   m_ObjectHideFlags: 0
@@ -940,7 +939,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toolName: Raise Terrain
   speed: 0.02
-  radius: 5
 --- !u!1 &864868332
 GameObject:
   m_ObjectHideFlags: 0
@@ -1731,7 +1729,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: 'SELECTED:
+
+    Raise Terrain'
 --- !u!222 &2034426463
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1811,8 +1811,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lookSensitivity: 100
   moveSpeed: 20
-  terrainRaiseSpeed: 0.02
-  terrainRaiseRadius: 5
+  toolStartRadius: 5
+  toolRadiusScrollMult: 1
   targetCircleFloatHeight: 0.1
   tools:
   - {fileID: 842312616}

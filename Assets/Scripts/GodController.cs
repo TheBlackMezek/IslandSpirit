@@ -11,8 +11,8 @@ public class GodController : MonoBehaviour {
     public float lookSensitivity;
     public float moveSpeed;
 
-    public float terrainRaiseSpeed;
-    public float terrainRaiseRadius;
+    public float toolStartRadius;
+    public float toolRadiusScrollMult;
 
     public float targetCircleFloatHeight;
     
@@ -24,6 +24,7 @@ public class GodController : MonoBehaviour {
     private Terrain terrain;
     private Transform targetCircle;
     private GodToolAbstract activeTool;
+    private float toolRadius;
 
 
 
@@ -35,6 +36,11 @@ public class GodController : MonoBehaviour {
         {
             SetTool(0);
         }
+    }
+
+    private void Awake()
+    {
+        toolRadius = toolStartRadius;
     }
 
     private void Update()
@@ -58,7 +64,7 @@ public class GodController : MonoBehaviour {
             tHeight = terrain.SampleHeight(hit.point);
             targetCircle.position = new Vector3(hit.point.x, tHeight + targetCircleFloatHeight, hit.point.z);
             targetCircle.eulerAngles = Vector3.zero;
-            targetCircle.localScale = new Vector3(terrainRaiseRadius, 1, terrainRaiseRadius);
+            targetCircle.localScale = new Vector3(toolRadius, 1, toolRadius);
         }
         else
         {
@@ -80,52 +86,53 @@ public class GodController : MonoBehaviour {
 
             float dt = Time.deltaTime;
 
+            float scrollAmt = Input.GetAxis("Mouse ScrollWheel");
+            if (scrollAmt != 0f)
+            {
+                toolRadius += toolRadius * scrollAmt * toolRadiusScrollMult;
+                activeTool.OnMouseScroll(scrollAmt, data, dt, toolRadius);
+            }
+
             #region MouseButtonCalls
             if (Input.GetMouseButton(0))
             {
-                activeTool.OnMouseHeld(0, data, dt);
+                activeTool.OnMouseHeld(0, data, dt, toolRadius);
             }
             else if(Input.GetMouseButtonDown(0))
             {
-                activeTool.OnMouseDown(0, data, dt);
+                activeTool.OnMouseDown(0, data, dt, toolRadius);
             }
             else if(Input.GetMouseButtonUp(0))
             {
-                activeTool.OnMouseUp(0, data, dt);
+                activeTool.OnMouseUp(0, data, dt, toolRadius);
             }
 
             if (Input.GetMouseButton(1))
             {
-                activeTool.OnMouseHeld(1, data, dt);
+                activeTool.OnMouseHeld(1, data, dt, toolRadius);
             }
             else if (Input.GetMouseButtonDown(1))
             {
-                activeTool.OnMouseDown(1, data, dt);
+                activeTool.OnMouseDown(1, data, dt, toolRadius);
             }
             else if (Input.GetMouseButtonUp(1))
             {
-                activeTool.OnMouseUp(1, data, dt);
+                activeTool.OnMouseUp(1, data, dt, toolRadius);
             }
 
             if (Input.GetMouseButton(2))
             {
-                activeTool.OnMouseHeld(2, data, dt);
+                activeTool.OnMouseHeld(2, data, dt, toolRadius);
             }
             else if (Input.GetMouseButtonDown(2))
             {
-                activeTool.OnMouseDown(2, data, dt);
+                activeTool.OnMouseDown(2, data, dt, toolRadius);
             }
             else if (Input.GetMouseButtonUp(2))
             {
-                activeTool.OnMouseUp(2, data, dt);
+                activeTool.OnMouseUp(2, data, dt, toolRadius);
             }
             #endregion
-
-            float scrollAmt = Input.GetAxis("Mouse ScrollWheel");
-            if(scrollAmt != 0)
-            {
-                activeTool.OnMouseScroll(scrollAmt, data, dt);
-            }
         }
 
         if (Input.GetMouseButton(1))
