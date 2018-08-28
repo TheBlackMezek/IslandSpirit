@@ -12,6 +12,7 @@ public class AvatarController : MonoBehaviour
     public float moveSpeed;
     public float jumpSpeed;
     public float gravity;
+    public float fallTimeTillAnimate;
 
     private float camRotX = 0;
     private float camRotY = 0;
@@ -22,6 +23,7 @@ public class AvatarController : MonoBehaviour
     private Animator animator;
 
     private bool onGround = false;
+    private float fallTimer;
 
 
 
@@ -41,11 +43,21 @@ public class AvatarController : MonoBehaviour
         if(cc.isGrounded)
         {
             onGround = true;
+            animator.SetBool("Grounded", true);
+            fallTimer = 0;
             yvel = 0;
         }
         else
         {
             yvel += Time.deltaTime * gravity;
+            if(fallTimer >= fallTimeTillAnimate)
+            {
+                animator.SetBool("Grounded", false);
+            }
+            else
+            {
+                fallTimer += Time.deltaTime;
+            }
         }
 
         if (onGround && Input.GetKeyDown(KeyCode.Space))
@@ -53,6 +65,7 @@ public class AvatarController : MonoBehaviour
             onGround = false;
             yvel = jumpSpeed;
             animator.SetTrigger("Jump");
+            animator.SetBool("Grounded", false);
         }
 
 
