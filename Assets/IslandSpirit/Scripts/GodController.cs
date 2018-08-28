@@ -259,6 +259,36 @@ public class GodController : MonoBehaviour {
         }
     }
 
+    public void DeletePlacedObject(GameObject obj)
+    {
+        int terrainPosX = (int)(
+            ((obj.transform.position.x - terrain.transform.position.x)
+            / terrain.terrainData.size.x) * terrain.terrainData.heightmapWidth);
+        int terrainPosY = (int)(
+            ((obj.transform.position.z - terrain.transform.position.z)
+            / terrain.terrainData.size.z) * terrain.terrainData.heightmapHeight);
+
+        placedObjects[terrainPosX, terrainPosY].Remove(obj.transform);
+        if(placedObjects[terrainPosX, terrainPosY].Count == 0)
+        {
+            placedObjects[terrainPosX, terrainPosY] = null;
+        }
+        Destroy(obj);
+    }
+
+    public void ClearPlacedObjects(int terrainX, int terrainY)
+    {
+        if(placedObjects[terrainX, terrainY] != null)
+        {
+            int count = placedObjects[terrainX, terrainY].Count;
+            for (int i = 0; i < count; ++i)
+            {
+                Destroy(placedObjects[terrainX, terrainY][i].gameObject);
+            }
+            placedObjects[terrainX, terrainY] = null;
+        }
+    }
+
     public void UpdatePlacedObjectPositions(int startX, int startY, int lenX, int lenY)
     {
         Transform t;
