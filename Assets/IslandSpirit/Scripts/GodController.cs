@@ -244,11 +244,19 @@ public class GodController : MonoBehaviour {
             ((obj.transform.position.z - terrain.transform.position.z)
             / terrain.terrainData.size.z) * terrain.terrainData.heightmapHeight);
 
-        if (placedObjects[terrainPosX, terrainPosY] == null)
+        if(terrainPosX < 0 || terrainPosX >= terrain.terrainData.heightmapWidth
+        || terrainPosY < 0 || terrainPosY >= terrain.terrainData.heightmapHeight)
         {
-            placedObjects[terrainPosX, terrainPosY] = new List<Transform>();
+            Destroy(obj);
         }
-        placedObjects[terrainPosX, terrainPosY].Add(obj.transform);
+        else
+        {
+            if (placedObjects[terrainPosX, terrainPosY] == null)
+            {
+                placedObjects[terrainPosX, terrainPosY] = new List<Transform>();
+            }
+            placedObjects[terrainPosX, terrainPosY].Add(obj.transform);
+        }
     }
 
     public void UpdatePlacedObjectPositions(int startX, int startY, int lenX, int lenY)
