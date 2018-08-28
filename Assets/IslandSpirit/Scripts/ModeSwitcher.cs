@@ -7,7 +7,14 @@ public class ModeSwitcher : MonoBehaviour {
     public GameObject godCam;
     public GameObject avatar;
 
+    private Terrain terrain;
 
+
+
+    private void OnValidate()
+    {
+        terrain = GameObject.Find("Terrain").GetComponent<Terrain>();
+    }
 
     private void Awake()
     {
@@ -21,6 +28,13 @@ public class ModeSwitcher : MonoBehaviour {
         {
             godCam.SetActive(!godCam.activeInHierarchy);
             avatar.SetActive(!avatar.activeInHierarchy);
+
+            if(avatar.activeInHierarchy)
+            {
+                avatar.transform.position = new Vector3(avatar.transform.position.x,
+                                                        terrain.SampleHeight(avatar.transform.position),
+                                                        avatar.transform.position.z);
+            }
         }
     }
 
