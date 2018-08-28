@@ -77,7 +77,7 @@ public class AvatarController : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             camRotY +=  Input.GetAxis("Mouse X") * lookSensitivity * Time.deltaTime;
             camRotX += -Input.GetAxis("Mouse Y") * lookSensitivity * Time.deltaTime;
-            Mathf.Clamp(camRotX, -90f, 90f);
+            camRotX = Mathf.Clamp(camRotX, -90f, 90f);
         }
         else
         {

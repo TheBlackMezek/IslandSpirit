@@ -193,7 +193,7 @@ public class GodController : MonoBehaviour {
             transform.eulerAngles += Vector3.up * Input.GetAxis("Mouse X")
                                    * lookSensitivity * Time.deltaTime;
             xRotOffset += -Input.GetAxis("Mouse Y") * lookSensitivity * Time.deltaTime;
-            Mathf.Clamp(xRotOffset, -90f, 90f);
+            xRotOffset = Mathf.Clamp(xRotOffset, -90f, 90f);
             transform.eulerAngles = new Vector3(xRotOffset, transform.eulerAngles.y, transform.eulerAngles.z);
         }
         else
