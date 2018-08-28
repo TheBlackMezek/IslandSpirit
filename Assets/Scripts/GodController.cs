@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class GodController : MonoBehaviour {
 
     public float lookSensitivity;
@@ -11,10 +13,13 @@ public class GodController : MonoBehaviour {
     public float terrainRaiseRadius;
 
     public float targetCircleFloatHeight;
+    
+    public GodToolAbstract[] tools;
 
     private float xRotOffset = 0;
     private Terrain terrain;
     private Transform targetCircle;
+    private GodToolAbstract activeTool;
 
 
 
@@ -22,13 +27,19 @@ public class GodController : MonoBehaviour {
     {
         terrain = GameObject.Find("Terrain").GetComponent<Terrain>();
         targetCircle = transform.Find("TargetCircle");
+        if(tools.Length > 0)
+        {
+            activeTool = tools[0];
+        }
     }
 
     private void Update()
     {
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        bool impact = Physics.Raycast(ray.origin, ray.direction, out hit, 10000f, LayerMask.GetMask("TerrainEdit"));
+        bool impact = Physics.Raycast(ray.origin, ray.direction, out hit, 10000f, LayerMask.GetMask("TerrainFloor"));
+        Vector2 terrainPos = Vector2.zero;
+        float tHeight = 0;
 
         if (impact)
         {
@@ -36,24 +47,87 @@ public class GodController : MonoBehaviour {
             v3pos.x /= terrain.terrainData.size.x;
             v3pos.y /= terrain.terrainData.size.y;
             v3pos.z /= terrain.terrainData.size.z;
-            Vector2 terrainPos = new Vector2(v3pos.x * terrain.terrainData.heightmapWidth,
+            terrainPos = new Vector2(v3pos.x * terrain.terrainData.heightmapWidth,
                                              v3pos.z * terrain.terrainData.heightmapHeight);
 
             targetCircle.gameObject.SetActive(true);
-            float tHeight = terrain.SampleHeight(hit.point);
+            tHeight = terrain.SampleHeight(hit.point);
             targetCircle.position = new Vector3(hit.point.x, tHeight + targetCircleFloatHeight, hit.point.z);
             targetCircle.eulerAngles = Vector3.zero;
             targetCircle.localScale = new Vector3(terrainRaiseRadius, 1, terrainRaiseRadius);
 
-            if (Input.GetMouseButton(0))
-            {
-                RaiseTerrainCircleLerpBrush((int)terrainPos.x, (int)terrainPos.y, terrainRaiseRadius,
-                                            Time.deltaTime * terrainRaiseSpeed);
-            }
+            //if (Input.GetMouseButton(0))
+            //{
+            //    RaiseTerrainCircleLerpBrush((int)terrainPos.x, (int)terrainPos.y, terrainRaiseRadius,
+            //                                Time.deltaTime * terrainRaiseSpeed);
+            //}
         }
         else
         {
             targetCircle.gameObject.SetActive(false);
+        }
+
+        
+
+        impact = Physics.Raycast(ray.origin, ray.direction, out hit, 10000f, LayerMask.GetMask("Terrain"));
+        Vector3 terrainHitPoint = impact ? hit.point : Vector3.zero;
+
+        if (activeTool != null)
+        {
+            TerrainHitData data;
+            data.terrain = terrain;
+            data.floorHitPos = terrainPos;
+            data.heightAtFloorPos = tHeight;
+            data.physicalHitPoint = terrainHitPoint;
+
+            float dt = Time.deltaTime;
+
+            #region MouseButtonCalls
+            if (Input.GetMouseButton(0))
+            {
+                activeTool.OnMouseHeld(0, data, dt);
+            }
+            else if(Input.GetMouseButtonDown(0))
+            {
+                activeTool.OnMouseDown(0, data, dt);
+            }
+            else if(Input.GetMouseButtonUp(0))
+            {
+                activeTool.OnMouseUp(0, data, dt);
+            }
+
+            if (Input.GetMouseButton(1))
+            {
+                activeTool.OnMouseHeld(1, data, dt);
+            }
+            else if (Input.GetMouseButtonDown(1))
+            {
+                activeTool.OnMouseDown(1, data, dt);
+            }
+            else if (Input.GetMouseButtonUp(1))
+            {
+                activeTool.OnMouseUp(1, data, dt);
+            }
+
+            if (Input.GetMouseButton(2))
+            {
+                activeTool.OnMouseHeld(2, data, dt);
+            }
+            else if (Input.GetMouseButtonDown(2))
+            {
+                activeTool.OnMouseDown(2, data, dt);
+            }
+            else if (Input.GetMouseButtonUp(2))
+            {
+                activeTool.OnMouseUp(2, data, dt);
+            }
+            #endregion
+
+            float scrollAmt = Input.GetAxis("Mouse ScrollWheel");
+            if(scrollAmt != 0)
+            {
+                activeTool.OnMouseScroll(scrollAmt, data, dt);
+            }
         }
 
         //if (Input.GetMouseButton(0))
@@ -71,7 +145,7 @@ public class GodController : MonoBehaviour {
         //    }
         //}
 
-        if(Input.GetMouseButton(1))
+        if (Input.GetMouseButton(1))
         {
             Cursor.lockState = CursorLockMode.Locked;
             transform.eulerAngles += Vector3.up * Input.GetAxis("Mouse X")
