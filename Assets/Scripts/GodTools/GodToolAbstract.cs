@@ -5,6 +5,8 @@ using UnityEngine;
 public abstract class GodToolAbstract : MonoBehaviour
 {
 
+    public string toolName;
+
     public virtual void OnMouseDown(int button, TerrainHitData data, float dt)
     {
 
