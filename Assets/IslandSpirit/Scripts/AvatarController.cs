@@ -11,6 +11,7 @@ public class AvatarController : MonoBehaviour
     public float heightOffset;
     public float moveSpeed;
     public float jumpSpeed;
+    public float gravity;
 
     private float camRotX = 0;
     private float camRotY = 0;
@@ -19,6 +20,8 @@ public class AvatarController : MonoBehaviour
 
     private CharacterController cc;
     private Animator animator;
+
+    private bool onGround = false;
 
 
 
@@ -37,18 +40,21 @@ public class AvatarController : MonoBehaviour
     {
         if(cc.isGrounded)
         {
+            onGround = true;
             yvel = 0;
-        }
-        else if (Input.GetKeyDown(KeyCode.Space))
-        {
-            yvel = jumpSpeed;
-            animator.SetTrigger("Jump");
         }
         else
         {
-            yvel += Time.deltaTime * Physics.gravity.y;
+            yvel += Time.deltaTime * gravity;
         }
-        
+
+        if (onGround && Input.GetKeyDown(KeyCode.Space))
+        {
+            onGround = false;
+            yvel = jumpSpeed;
+            animator.SetTrigger("Jump");
+        }
+
 
         Vector3 moveVec = (camera.forward * Input.GetAxis("ForeBack")
               + camera.right * Input.GetAxis("Horizontal")).normalized * Time.deltaTime * moveSpeed;

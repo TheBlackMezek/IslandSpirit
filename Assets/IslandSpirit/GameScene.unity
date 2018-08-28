@@ -12119,7 +12119,8 @@ MonoBehaviour:
   initialCamDist: 5
   heightOffset: 1.5
   moveSpeed: 10
-  jumpSpeed: 3
+  jumpSpeed: 1
+  gravity: -1
 --- !u!1 &1145095433
 GameObject:
   m_ObjectHideFlags: 0
