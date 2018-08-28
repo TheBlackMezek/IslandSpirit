@@ -5,15 +5,43 @@ using UnityEngine;
 public class GTCircleRaiseTerrain : GodToolAbstract {
     
     public float speed;
+    
+    public float particleToRadiusRatio;
+    public float particleSizeToRadiusRatio;
+    public float particleMinSize;
+    public float particleMaxSize;
 
 
 
     public override void OnMouseHeld(int button, TerrainHitData data, float dt, float toolRadius, GameObject placablePrefab)
     {
-        if(button == 0)
+        if (button == 0)
         {
             RaiseTerrainCircleLerpBrush(data, dt, toolRadius);
+            if (!particleSystem.isPlaying)
+            {
+                particleSystem.Play();
+            }
         }
+    }
+
+    public override void OnMouseUp(int button, TerrainHitData data, float dt, float toolRadius, GameObject placablePrefab)
+    {
+        if (button == 0)
+        {
+            particleSystem.Stop();
+            particleSystem.Clear();
+        }
+    }
+
+    public override void OnBrushRadiusChange(float newRadius)
+    {
+        ParticleSystem.ShapeModule shape = particleSystem.shape;
+        shape.radius = newRadius;
+        ParticleSystem.EmissionModule em = particleSystem.emission;
+        em.rateOverTime = newRadius * particleToRadiusRatio;
+        ParticleSystem.MainModule main = particleSystem.main;
+        main.startSize = Mathf.Clamp(newRadius * particleSizeToRadiusRatio, particleMinSize, particleMaxSize);
     }
 
     private void RaiseTerrainCircleLerpBrush(TerrainHitData data, float dt, float radius)

@@ -27,6 +27,7 @@ public class GodController : MonoBehaviour {
     private float xRotOffset = 0;
     private Terrain terrain;
     private Transform targetCircle;
+    private float prevRadius = float.MinValue;
 
     private GodToolAbstract activeTool;
     private GameObject activeToolUI;
@@ -111,7 +112,12 @@ public class GodController : MonoBehaviour {
             tHeight = terrain.SampleHeight(hit.point);
             targetCircle.position = new Vector3(hit.point.x, tHeight + targetCircleFloatHeight, hit.point.z);
             targetCircle.eulerAngles = Vector3.zero;
-            targetCircle.localScale = new Vector3(toolRadius, 1, toolRadius);
+            targetCircle.localScale = new Vector3(toolRadius * 2, 1, toolRadius * 2);
+            if(toolRadius != prevRadius)
+            {
+                prevRadius = toolRadius;
+                activeTool.OnBrushRadiusChange(toolRadius);
+            }
         }
         else
         {
@@ -214,6 +220,7 @@ public class GodController : MonoBehaviour {
         }
         activeTool = tools[idx];
         activeTool.OnToolSelect(selectedObject);
+        activeTool.OnBrushRadiusChange(toolRadius);
         if(toolUI[idx] != null)
         {
             activeToolUI = toolUI[idx];

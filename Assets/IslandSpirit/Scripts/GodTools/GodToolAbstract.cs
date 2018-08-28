@@ -6,6 +6,7 @@ public abstract class GodToolAbstract : MonoBehaviour
 {
 
     public string toolName;
+    public ParticleSystem particleSystem;
 
     protected GodController gc;
 
@@ -24,6 +25,11 @@ public abstract class GodToolAbstract : MonoBehaviour
     }
 
     public virtual void OnToolDeselect()
+    {
+
+    }
+
+    public virtual void OnBrushRadiusChange(float newRadius)
     {
 
     }
