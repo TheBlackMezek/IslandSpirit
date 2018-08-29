@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class GTGroundBrush : GodToolAbstract {
 
+    [Range(0f, 1f), Tooltip("The percentage of the radius out from center in which tex alpha will be set to 1")]
+    public float solidTexRadPercent;
+
     private int texture = 1;
 
     private float[] alphas;
@@ -82,7 +85,17 @@ public class GTGroundBrush : GodToolAbstract {
                         }
                     }
 
-                    texAlpha = Mathf.Lerp(0, 1, Mathf.InverseLerp(toolRadius, 0, dist));
+                    if (dist < toolRadius * solidTexRadPercent)
+                    {
+                        texAlpha = 1f;
+                    }
+                    else
+                    {
+                        texAlpha = Mathf.Lerp(0f, 1f,
+                            Mathf.InverseLerp(toolRadius, toolRadius * solidTexRadPercent, dist));
+                    }
+
+                    //texAlpha = Mathf.Lerp(0, 1, Mathf.InverseLerp(toolRadius + (toolRadius * solidTexRadPercent), 0, dist));
                     if(splats[y - gridY, x - gridX, texture] < texAlpha)
                     {
                         leftoverAlpha = 1f - texAlpha;

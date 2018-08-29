@@ -1294,6 +1294,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toolName: Ground Brush
   particleSystem: {fileID: 0}
+  solidTexRadPercent: 0.6
 --- !u!1 &733392789
 GameObject:
   m_ObjectHideFlags: 0
