@@ -12,13 +12,19 @@ public class GTPlaceObject : GodToolAbstract {
 
     public override void OnToolSelect(GameObject placablePrefab)
     {
-        ghost = Instantiate(placablePrefab);
-        RecursiveChangeLayer(ghost);
+        MakeGhost(placablePrefab);
     }
 
     private void RecursiveChangeLayer(GameObject obj)
     {
         obj.layer = LayerMask.NameToLayer(ghostLayer);
+
+        MonoBehaviour[] script = obj.GetComponents<MonoBehaviour>();
+        for(int i = 0; i < script.Length; ++i)
+        {
+            script[i].enabled = false;
+        }
+
         for(int i = 0; i < obj.transform.childCount; ++i)
         {
             RecursiveChangeLayer(obj.transform.GetChild(i).gameObject);
@@ -38,6 +44,11 @@ public class GTPlaceObject : GodToolAbstract {
     public override void OnSlectedPlacableObjectChange(GameObject placablePrefab)
     {
         Destroy(ghost);
+        MakeGhost(placablePrefab);
+    }
+
+    private void MakeGhost(GameObject placablePrefab)
+    {
         ghost = Instantiate(placablePrefab);
         RecursiveChangeLayer(ghost);
     }

@@ -2094,13 +2094,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   woodForHouse: 2
   woodPerTree: 1
-  treeCheckRadius: 10
+  treeCheckRadius: 20
   housePrefab: {fileID: 1106187630517426, guid: 211c98a7402259948a288c5c6c73ce8c,
     type: 2}
   treeLayer: PlacableObject
   treeTag: tree
   randomWalkMaxDist: 10
   arrivalThreshold: 1.5
+  idleMaxTime: 2
   mover: {fileID: 114376792832949568}
 --- !u!137 &137158876628493938
 SkinnedMeshRenderer:

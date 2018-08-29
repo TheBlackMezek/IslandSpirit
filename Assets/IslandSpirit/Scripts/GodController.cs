@@ -8,6 +8,8 @@ using UnityEngine.UI;
 
 public class GodController : MonoBehaviour {
 
+    public static GodController Instance { get; private set; }
+
     public float lookSensitivity;
     public float moveSpeed;
 
@@ -63,6 +65,8 @@ public class GodController : MonoBehaviour {
 
     private void Awake()
     {
+        Instance = this;
+
         toolRadius = toolStartRadius;
 
         placedObjects = new List<Transform>[terrain.terrainData.heightmapWidth,

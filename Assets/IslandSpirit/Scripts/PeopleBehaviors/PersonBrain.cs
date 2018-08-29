@@ -29,6 +29,8 @@ public class PersonBrain : MonoBehaviour {
     private float randomWalkMaxDist;
     [SerializeField]
     private float arrivalThreshold;
+    [SerializeField]
+    private float idleMaxTime;
 
     [SerializeField]
     private PersonMover mover;
@@ -37,6 +39,9 @@ public class PersonBrain : MonoBehaviour {
     private Vector3 walkGoal;
     private Transform walkGoalSource = null;
     private Transform house = null;
+
+    private float woodStore;
+    private float idleTimer = 0;
 
 
 
@@ -53,6 +58,7 @@ public class PersonBrain : MonoBehaviour {
             if(Vector3.Distance(transform.position, walkGoal) <= arrivalThreshold)
             {
                 state = PersonState.IDLE;
+                idleTimer = 0;
             }
         }
         else
@@ -65,16 +71,26 @@ public class PersonBrain : MonoBehaviour {
                     SetRandomWalkGoal();
                 }
             }
+            else
+            {
+                idleTimer += Time.deltaTime;
+                if(idleTimer >= idleMaxTime)
+                {
+                    idleTimer = Random.Range(0f, idleMaxTime);
+                    SetRandomWalkGoal();
+                }
+            }
         }
     }
 
     private void CheckForTree()
     {
-        Collider[] clist = Physics.OverlapSphere(transform.position, treeCheckRadius,
-            LayerMask.NameToLayer(treeLayer));
+        Collider[] clist = Physics.OverlapSphere(transform.position, treeCheckRadius);
+            //LayerMask.NameToLayer(treeLayer));
+            //~(1 << LayerMask.NameToLayer(treeLayer)));
         float leastDist = float.MaxValue;
         Transform leastTree = null;
-
+        
         for(int i = 0; i < clist.Length; ++i)
         {
             PropertiesProfile profile = PropertyProfileManager.Instance.GetObjectProfile(clist[i].transform);
@@ -115,6 +131,32 @@ public class PersonBrain : MonoBehaviour {
         walkGoal.y = TerrainGlobal.terrain.SampleHeight(walkGoal);
 
         state = PersonState.WALK;
+    }
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (house == null)
+        {
+            PropertiesProfile profile = PropertyProfileManager.Instance.GetObjectProfile(hit.transform);
+            if (profile && profile.HasTag(treeTag))
+            {
+                woodStore += woodPerTree;
+
+                if (woodStore >= woodForHouse)
+                {
+                    house = Instantiate(housePrefab).transform;
+                    house.position = hit.transform.root.position;
+                    house.eulerAngles = new Vector3(0, Random.Range(0f, 360f));
+                    GodController.Instance.AddPlacedObject(house.gameObject);
+                    woodStore -= woodForHouse;
+                }
+
+                GodController.Instance.DeletePlacedObject(hit.transform.root.gameObject);
+
+                walkGoalSource = null;
+                state = PersonState.IDLE;
+            }
+        }
     }
 
 }
