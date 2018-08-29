@@ -103,4 +103,9 @@ public class GTGroundBrush : GodToolAbstract {
         data.terrain.terrainData.SetAlphamaps(gridX, gridY, splats);
     }
 
+    public void SetTexture(int id)
+    {
+        texture = id;
+    }
+
 }
