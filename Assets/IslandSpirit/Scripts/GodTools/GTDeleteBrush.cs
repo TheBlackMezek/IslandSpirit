@@ -6,6 +6,12 @@ public class GTDeleteBrush : GodToolAbstract {
 
     public override void OnMouseDown(int button, TerrainHitData data, float dt, float toolRadius, GameObject placablePrefab)
     {
+        if(button != 0)
+        {
+            return;
+        }
+
+
         int centerX = (int)data.terrainHitPos.x;
         int centerY = (int)data.terrainHitPos.y;
         int radiusInt = (int)Mathf.Ceil(toolRadius);
