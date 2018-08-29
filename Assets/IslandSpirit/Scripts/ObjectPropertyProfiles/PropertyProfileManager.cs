@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PropertyProfileManager : MonoBehaviour {
     
-    public PropertyProfileManager Instance { get; private set; }
+    public static PropertyProfileManager Instance { get; private set; }
 
     [SerializeField]
     private PropertiesProfile[] propertyProfiles;

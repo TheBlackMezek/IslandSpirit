@@ -318,7 +318,6 @@ GameObject:
   m_Component:
   - component: {fileID: 64233681}
   - component: {fileID: 64233684}
-  - component: {fileID: 64233683}
   - component: {fileID: 64233682}
   m_Layer: 0
   m_Name: Top
@@ -374,20 +373,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &64233683
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 64233680}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &64233684
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -630,7 +615,6 @@ GameObject:
   m_Component:
   - component: {fileID: 166897879}
   - component: {fileID: 166897882}
-  - component: {fileID: 166897881}
   - component: {fileID: 166897880}
   m_Layer: 0
   m_Name: Bottom
@@ -686,20 +670,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &166897881
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 166897878}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &166897882
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -12446,6 +12416,7 @@ GameObject:
   - component: {fileID: 1096761036}
   - component: {fileID: 1096761035}
   - component: {fileID: 1096761038}
+  - component: {fileID: 1096761039}
   m_Layer: 8
   m_Name: Terrain
   m_TagString: Untagged
@@ -12519,6 +12490,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseHeight: 0.02
+--- !u!114 &1096761039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1096761034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c99e7b26a13a74742ba697d8256ebded, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1138915967 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: 7657114722f461b4090d4fb1fb3c2234, type: 3}
@@ -17605,6 +17587,7 @@ MonoBehaviour:
   - {fileID: 1706852783796436, guid: 446830245dc0bd443ae24222647cfdd9, type: 2}
   - {fileID: 1380614665728540, guid: 61183825658a7d34c87d1174705701b1, type: 2}
   - {fileID: 1106187630517426, guid: 211c98a7402259948a288c5c6c73ce8c, type: 2}
+  - {fileID: 1912642269981902, guid: 83087387a01e49a4dace828582d368f5, type: 2}
   selectedToolText: {fileID: 2034426462}
   placableObjectButtonPrefab: {fileID: 1324445676220688, guid: 3a9cb8692eb630349bc3059b1913c98c,
     type: 2}
