@@ -55,9 +55,11 @@ public class GTObjectBrush : GodToolAbstract
             for(int i = 0; i < objCount; ++i)
             {
                 GameObject obj = Instantiate(placablePrefab);
-                obj.transform.position = ghost.transform.position;
                 obj.transform.eulerAngles = Vector3.up * Random.Range(0f, 360f);
                 obj.transform.position += obj.transform.forward * Random.Range(0f, toolRadius);
+                obj.transform.position = new Vector3(obj.transform.position.x,
+                                                     data.terrain.SampleHeight(obj.transform.position),
+                                                     obj.transform.position.z);
                 gc.AddPlacedObject(obj);
             }
         }
