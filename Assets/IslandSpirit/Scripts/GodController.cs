@@ -243,7 +243,7 @@ public class GodController : MonoBehaviour {
         activeTool.OnSlectedPlacableObjectChange(selectedObject);
     }
 
-    public void AddPlacedObject(GameObject obj)
+    public Vector2 AddPlacedObject(GameObject obj)
     {
         int terrainPosX = (int)(
             ((obj.transform.position.x - terrain.transform.position.x)
@@ -265,6 +265,8 @@ public class GodController : MonoBehaviour {
             }
             placedObjects[terrainPosX, terrainPosY].Add(obj.transform);
         }
+
+        return new Vector2(terrainPosX, terrainPosY);
     }
 
     public void DeletePlacedObject(GameObject obj)
@@ -315,6 +317,29 @@ public class GodController : MonoBehaviour {
                 }
             }
         }
+    }
+
+    public Vector2 UpdadePlacedObjectLocation(GameObject obj, int oldX, int oldY)
+    {
+        placedObjects[oldX, oldY].Remove(obj.transform);
+        if (placedObjects[oldX, oldY].Count == 0)
+        {
+            placedObjects[oldX, oldY] = null;
+        }
+
+        return AddPlacedObject(obj);
+    }
+
+    public Vector2 GetTerrainPos(Transform t)
+    {
+        int terrainPosX = (int)(
+            ((t.position.x - terrain.transform.position.x)
+            / terrain.terrainData.size.x) * terrain.terrainData.heightmapWidth);
+        int terrainPosY = (int)(
+            ((t.position.z - terrain.transform.position.z)
+            / terrain.terrainData.size.z) * terrain.terrainData.heightmapHeight);
+
+        return new Vector2(terrainPosX, terrainPosY);
     }
 
 }

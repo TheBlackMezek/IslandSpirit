@@ -12,8 +12,17 @@ public class PersonMover : MonoBehaviour {
     [SerializeField]
     private Animator animator;
 
+    private int terrainX;
+    private int terrainY;
 
     
+
+    private void Start()
+    {
+        Vector2 tpos = GodController.Instance.GetTerrainPos(transform);
+        terrainX = (int)tpos.x;
+        terrainY = (int)tpos.y;
+    }
 
     private void Update()
     {
@@ -36,6 +45,13 @@ public class PersonMover : MonoBehaviour {
     public void Walk(Vector3 dir)
     {
         cc.SimpleMove(dir * walkSpeed);
+        Vector2 tpos = GodController.Instance.GetTerrainPos(transform);
+        if(tpos.x != terrainX || tpos.y != terrainY)
+        {
+            GodController.Instance.UpdadePlacedObjectLocation(gameObject, terrainX, terrainY);
+            terrainX = (int)tpos.x;
+            terrainY = (int)tpos.y;
+        }
     }
 
 }
