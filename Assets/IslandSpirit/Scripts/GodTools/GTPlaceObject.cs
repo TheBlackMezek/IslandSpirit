@@ -48,6 +48,7 @@ public class GTPlaceObject : GodToolAbstract {
         {
             GameObject obj = Instantiate(placablePrefab);
             obj.transform.position = ghost.transform.position;
+            obj.transform.eulerAngles = new Vector3(0, Random.Range(0f, 360f), 0);
             gc.AddPlacedObject(obj);
             particleSystem.transform.position = ghost.transform.position;
             particleSystem.Play();

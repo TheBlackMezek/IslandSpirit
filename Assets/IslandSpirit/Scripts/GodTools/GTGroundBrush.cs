@@ -18,8 +18,8 @@ public class GTGroundBrush : GodToolAbstract {
         }
 
 
-        int centerX = (int)data.floorHitPos.x;
-        int centerY = (int)data.floorHitPos.y;
+        int centerX = (int)data.terrainHitPos.x;
+        int centerY = (int)data.terrainHitPos.y;
         int radiusInt = (int)Mathf.Ceil(toolRadius);
         int diameter = radiusInt * 2 + 1;
         int lenX = diameter;

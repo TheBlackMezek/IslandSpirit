@@ -15,8 +15,8 @@ public class GTObjectBrush : GodToolAbstract
 
     public override void OnToolSelect(GameObject placablePrefab)
     {
-        ghost = Instantiate(placablePrefab);
-        RecursiveChangeLayer(ghost);
+        //ghost = Instantiate(placablePrefab);
+        //RecursiveChangeLayer(ghost);
     }
 
     private void RecursiveChangeLayer(GameObject obj)
@@ -30,19 +30,19 @@ public class GTObjectBrush : GodToolAbstract
 
     public override void OnToolDeselect()
     {
-        Destroy(ghost);
+        //Destroy(ghost);
     }
 
     public override void ToolUpdate(TerrainHitData data, float dt)
     {
-        ghost.transform.position = data.physicalHitPoint;
+        //ghost.transform.position = data.physicalHitPoint;
     }
 
     public override void OnSlectedPlacableObjectChange(GameObject placablePrefab)
     {
-        Destroy(ghost);
-        ghost = Instantiate(placablePrefab);
-        RecursiveChangeLayer(ghost);
+        //Destroy(ghost);
+        //ghost = Instantiate(placablePrefab);
+        //RecursiveChangeLayer(ghost);
     }
 
     public override void OnMouseDown(int button, TerrainHitData data, float dt, float toolRadius, GameObject placablePrefab)
@@ -55,11 +55,13 @@ public class GTObjectBrush : GodToolAbstract
             for(int i = 0; i < objCount; ++i)
             {
                 GameObject obj = Instantiate(placablePrefab);
-                obj.transform.eulerAngles = Vector3.up * Random.Range(0f, 360f);
+                obj.transform.position = data.floorHitPos;
+                obj.transform.eulerAngles = new Vector3(0, Random.Range(0f, 360f), 0);
                 obj.transform.position += obj.transform.forward * Random.Range(0f, toolRadius);
                 obj.transform.position = new Vector3(obj.transform.position.x,
                                                      data.terrain.SampleHeight(obj.transform.position),
                                                      obj.transform.position.z);
+                obj.transform.eulerAngles = new Vector3(0, Random.Range(0f, 360f), 0);
                 gc.AddPlacedObject(obj);
             }
         }

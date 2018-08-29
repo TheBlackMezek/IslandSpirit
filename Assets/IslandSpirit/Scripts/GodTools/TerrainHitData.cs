@@ -6,7 +6,9 @@ public struct TerrainHitData {
 
     public Terrain terrain;
     public Vector3 physicalHitPoint;
-    public Vector2 floorHitPos;
+    public Vector3 floorHitPos;
+    public Vector3 floorHitPlusTHeight;
+    public Vector2 terrainHitPos;
     public float heightAtFloorPos;
 
 }

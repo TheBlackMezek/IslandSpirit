@@ -46,8 +46,8 @@ public class GTCircleLowerTerrain : GodToolAbstract
 
     private void LowerTerrainCircleLerpBrush(TerrainHitData data, float dt, float radius)
     {
-        int centerX = (int)data.floorHitPos.x;
-        int centerY = (int)data.floorHitPos.y;
+        int centerX = (int)data.terrainHitPos.x;
+        int centerY = (int)data.terrainHitPos.y;
         int radiusInt = (int)Mathf.Ceil(radius);
         int diameter = radiusInt * 2 + 1;
         int lenX = diameter;

@@ -98,9 +98,11 @@ public class GodController : MonoBehaviour {
         bool impact = Physics.Raycast(ray.origin, ray.direction, out hit, 10000f, LayerMask.GetMask("TerrainFloor"));
         Vector2 terrainPos = Vector2.zero;
         float tHeight = 0;
+        Vector3 floorHitPos = Vector3.zero;
 
         if (impact)
         {
+            floorHitPos = hit.point;
             Vector3 v3pos = hit.point - terrain.transform.position;
             v3pos.x /= terrain.terrainData.size.x;
             v3pos.y /= terrain.terrainData.size.y;
@@ -131,8 +133,10 @@ public class GodController : MonoBehaviour {
         TerrainHitData data = new TerrainHitData();
         data.physicalHitPoint = terrainHitPoint;
         data.terrain = terrain;
-        data.floorHitPos = terrainPos;
+        data.terrainHitPos = terrainPos;
         data.heightAtFloorPos = tHeight;
+        data.floorHitPos = floorHitPos;
+        data.floorHitPlusTHeight = new Vector3(floorHitPos.x, terrain.SampleHeight(floorHitPos), floorHitPos.z);
         float dt = Time.deltaTime;
 
         if (activeTool != null && !EventSystem.current.IsPointerOverGameObject())
