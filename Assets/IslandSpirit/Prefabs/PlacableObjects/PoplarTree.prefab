@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4641415090928544}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PoplarTree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,7 +37,7 @@ GameObject:
   - component: {fileID: 33774700972879194}
   - component: {fileID: 23296487558923082}
   - component: {fileID: 136093710956191298}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Poplar_Tree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -52,7 +52,7 @@ Transform:
   m_GameObject: {fileID: 1944976359253906}
   m_LocalRotation: {x: 0.000000021855694, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.008084536, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 4641415090928544}
   m_RootOrder: 0
@@ -64,7 +64,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1764927406236762}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.524719, y: -5.4603142e-14, z: 22.265503}
+  m_LocalPosition: {x: 98.687256, y: -5.2833223e-14, z: 16.353912}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4414244993457096}
