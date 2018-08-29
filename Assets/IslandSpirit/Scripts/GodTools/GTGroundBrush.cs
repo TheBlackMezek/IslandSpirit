@@ -73,7 +73,6 @@ public class GTGroundBrush : GodToolAbstract {
                 {
                     float texAlpha = splats[y - gridY, x - gridX, texture];
                     float leftoverAlpha = 1f - texAlpha;
-                    float layerAlpha;
 
                     //Here alphas is used to store ratios
                     alphas[texture] = 0;
