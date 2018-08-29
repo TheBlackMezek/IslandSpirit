@@ -18,11 +18,13 @@ public class TerrainResetter : MonoBehaviour {
     private void Awake()
     {
         ResetHeights();
+        ResetAlphamap();
     }
 
     private void OnApplicationQuit()
     {
         ResetHeights();
+        ResetAlphamap();
     }
 
     private void ResetHeights()
@@ -36,6 +38,29 @@ public class TerrainResetter : MonoBehaviour {
             }
         }
         terrain.terrainData.SetHeights(0, 0, heights);
+    }
+
+    private void ResetAlphamap()
+    {
+        float[,,] splats = terrain.terrainData.GetAlphamaps(0, 0, terrain.terrainData.alphamapWidth, terrain.terrainData.alphamapHeight);
+        for (int x = 0; x < terrain.terrainData.alphamapWidth; ++x)
+        {
+            for (int y = 0; y < terrain.terrainData.alphamapHeight; ++y)
+            {
+                for(int i = 0; i < terrain.terrainData.alphamapLayers; ++i)
+                {
+                    if(i == 0)
+                    {
+                        splats[x, y, i] = 1;
+                    }
+                    else
+                    {
+                        splats[x, y, i] = 0;
+                    }
+                }
+            }
+        }
+        terrain.terrainData.SetAlphamaps(0, 0, splats);
     }
 
 }
