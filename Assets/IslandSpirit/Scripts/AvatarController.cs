@@ -73,6 +73,13 @@ public class AvatarController : MonoBehaviour
               + camera.right * Input.GetAxis("Horizontal")).normalized * Time.deltaTime * moveSpeed;
         moveVec.y = yvel;
         cc.Move(moveVec);
+
+        if(transform.position.y < 0)
+        {
+            transform.position = new Vector3(0,
+                                             TerrainGlobal.terrain.SampleHeight(Vector3.zero) + 1f,
+                                             0);
+        }
         
         Vector3 lookDir = cc.velocity;
         lookDir.y = 0;
