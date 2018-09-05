@@ -19,7 +19,8 @@ public class PersonMover : MonoBehaviour {
 
     private void Start()
     {
-        Vector2 tpos = GodController.Instance.GetTerrainPos(transform);
+        //Vector2 tpos = GodController.Instance.GetTerrainPos(transform);
+        Vector2 tpos = TerrainGlobal.WorldToTerrainPos(transform.position);
         terrainX = (int)tpos.x;
         terrainY = (int)tpos.y;
     }
@@ -45,8 +46,9 @@ public class PersonMover : MonoBehaviour {
     public void Walk(Vector3 dir)
     {
         cc.SimpleMove(dir * walkSpeed);
-        Vector2 tpos = GodController.Instance.GetTerrainPos(transform);
-        if(tpos.x != terrainX || tpos.y != terrainY)
+        //Vector2 tpos = GodController.Instance.GetTerrainPos(transform);
+        Vector2 tpos = TerrainGlobal.WorldToTerrainPos(transform.position);
+        if (tpos.x != terrainX || tpos.y != terrainY)
         {
             GodController.Instance.UpdadePlacedObjectLocation(gameObject, terrainX, terrainY);
             terrainX = (int)tpos.x;

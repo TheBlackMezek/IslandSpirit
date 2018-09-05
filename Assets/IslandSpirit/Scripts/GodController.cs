@@ -330,16 +330,16 @@ public class GodController : MonoBehaviour {
         return AddPlacedObject(obj);
     }
 
-    public Vector2 GetTerrainPos(Transform t)
-    {
-        int terrainPosX = (int)(
-            ((t.position.x - terrain.transform.position.x)
-            / terrain.terrainData.size.x) * terrain.terrainData.heightmapWidth);
-        int terrainPosY = (int)(
-            ((t.position.z - terrain.transform.position.z)
-            / terrain.terrainData.size.z) * terrain.terrainData.heightmapHeight);
-
-        return new Vector2(terrainPosX, terrainPosY);
-    }
+    //public Vector2 GetTerrainPos(Transform t)
+    //{
+    //    int terrainPosX = (int)(
+    //        ((t.position.x - terrain.transform.position.x)
+    //        / terrain.terrainData.size.x) * terrain.terrainData.heightmapWidth);
+    //    int terrainPosY = (int)(
+    //        ((t.position.z - terrain.transform.position.z)
+    //        / terrain.terrainData.size.z) * terrain.terrainData.heightmapHeight);
+    //
+    //    return new Vector2(terrainPosX, terrainPosY);
+    //}
 
 }
