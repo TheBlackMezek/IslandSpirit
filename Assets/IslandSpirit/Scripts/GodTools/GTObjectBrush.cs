@@ -9,7 +9,7 @@ public class GTObjectBrush : GodToolAbstract
 
     public string ghostLayer;
 
-    private GameObject ghost;
+    //private GameObject ghost;
 
 
 

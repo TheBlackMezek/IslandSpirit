@@ -103,9 +103,13 @@ public class VRToolUser : MonoBehaviour {
 
 
 
-        if(triggerDown && tool != null)
+        if(tool != null)
         {
-            tool.OnMouseHeld(0, hitdat, lastdt, toolRadius, placeablePrefab);
+            tool.ToolUpdate(hitdat, lastdt);
+            if(triggerDown)
+            {
+                tool.OnMouseHeld(0, hitdat, lastdt, toolRadius, placeablePrefab);
+            }
         }
     }
 
@@ -127,7 +131,7 @@ public class VRToolUser : MonoBehaviour {
         }
     }
 
-    private void SetTool(int idx)
+    public void SetTool(int idx)
     {
         if (tool != null)
         {
