@@ -19,12 +19,12 @@ public class PlaceObjectTest : MonoBehaviour {
     private void OnValidate()
     {
         pointer = GetComponent<VRTK.VRTK_Pointer>();
+        controllerEvents = GetComponent<VRTK.VRTK_ControllerEvents>();
     }
 
     private void Start()
     {
         pointer.SelectionButtonPressed += OnPlaceButtonPressed;
-        controllerEvents = GetComponentInChildren<VRTK.VRTK_ControllerEvents>();
         controllerEvents.GripClicked += new VRTK.ControllerInteractionEventHandler(OnTeleportButtonPressed);
     }
 
