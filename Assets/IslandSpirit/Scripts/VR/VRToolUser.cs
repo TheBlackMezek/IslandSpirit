@@ -101,7 +101,7 @@ public class VRToolUser : MonoBehaviour {
 
 
 
-        if(triggerDown)
+        if(triggerDown && tool != null)
         {
             tool.OnMouseHeld(0, hitdat, lastdt, toolRadius, placeablePrefab);
         }
@@ -119,7 +119,10 @@ public class VRToolUser : MonoBehaviour {
     private void OnTriggerUnclicked(object sender, VRTK.ControllerInteractionEventArgs e)
     {
         triggerDown = false;
-        tool.OnMouseDown(0, hitdat, lastdt, toolRadius, placeablePrefab);
+        if(tool != null)
+        {
+            tool.OnMouseDown(0, hitdat, lastdt, toolRadius, placeablePrefab);
+        }
     }
 
     private void SetTool(int idx)

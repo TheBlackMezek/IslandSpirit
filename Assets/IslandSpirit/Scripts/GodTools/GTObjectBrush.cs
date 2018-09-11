@@ -62,7 +62,7 @@ public class GTObjectBrush : GodToolAbstract
                                                      data.terrain.SampleHeight(obj.transform.position),
                                                      obj.transform.position.z);
                 obj.transform.eulerAngles = new Vector3(0, Random.Range(0f, 360f), 0);
-                gc.AddPlacedObject(obj);
+                WorldManager.Instance.AddPlacedObject(obj);
             }
         }
     }

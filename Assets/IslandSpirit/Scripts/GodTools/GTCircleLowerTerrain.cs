@@ -97,7 +97,7 @@ public class GTCircleLowerTerrain : GodToolAbstract
 
         data.terrain.terrainData.SetHeights(gridX, gridY, heights);
 
-        gc.UpdatePlacedObjectPositions(gridX, gridY, lenX, lenY);
+        WorldManager.Instance.UpdatePlacedObjectPositions(gridX, gridY, lenX, lenY);
     }
 
 }

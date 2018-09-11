@@ -50,7 +50,7 @@ public class PersonMover : MonoBehaviour {
         Vector2 tpos = TerrainGlobal.WorldToTerrainPos(transform.position);
         if (tpos.x != terrainX || tpos.y != terrainY)
         {
-            GodController.Instance.UpdadePlacedObjectLocation(gameObject, terrainX, terrainY);
+            WorldManager.Instance.UpdadePlacedObjectLocation(gameObject, terrainX, terrainY);
             terrainX = (int)tpos.x;
             terrainY = (int)tpos.y;
         }

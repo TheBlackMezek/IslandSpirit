@@ -56,7 +56,7 @@ public class GTDeleteBrush : GodToolAbstract {
                 float dist = Vector2.Distance(loopPos, loopCenter);
                 if (dist <= toolRadius)
                 {
-                    gc.ClearPlacedObjects(x, y);
+                    WorldManager.Instance.ClearPlacedObjects(x, y);
                 }
             }
         }

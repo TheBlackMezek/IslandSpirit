@@ -16,7 +16,7 @@ public class GTDeleteObject : GodToolAbstract {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if(Physics.Raycast(ray.origin, ray.direction, out hit, 10000f, LayerMask.GetMask("PlacableObject")))
         {
-            gc.DeletePlacedObject(hit.collider.transform.root.gameObject);
+            WorldManager.Instance.DeletePlacedObject(hit.collider.transform.root.gameObject);
             particleSystem.transform.position = data.physicalHitPoint;
             particleSystem.Play();
         }
