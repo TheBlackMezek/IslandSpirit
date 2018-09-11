@@ -12,9 +12,11 @@ public class VRToolUser : MonoBehaviour {
     private float toolRadius;
     [SerializeField]
     private Transform targetCircle;
-
-    private VRTK.VRTK_Pointer pointer;
+    [SerializeField]
     private VRTK.VRTK_ControllerEvents controllerEvents;
+    [SerializeField]
+    private VRTK.VRTK_Pointer pointer;
+
     private Terrain terrain;
 
     private GodToolAbstract tool;
@@ -29,11 +31,10 @@ public class VRToolUser : MonoBehaviour {
 
 
     #region Setup
-    private void OnValidate()
-    {
-        pointer = GetComponent<VRTK.VRTK_Pointer>();
-        controllerEvents = GetComponent<VRTK.VRTK_ControllerEvents>();
-    }
+    //private void OnValidate()
+    //{
+    //    pointer = GetComponent<VRTK.VRTK_Pointer>();
+    //}
 
     private void Awake()
     {
@@ -89,7 +90,10 @@ public class VRToolUser : MonoBehaviour {
             }
         }
 
-        hitdat.physicalHitPoint = pointerValid ? hit.point : Vector3.zero;
+        Ray ray = new Ray(transform.position, transform.forward);
+        RaycastHit hit2;
+        bool terrainSurfHit = Physics.Raycast(ray.origin, ray.direction, out hit2, 10000f, LayerMask.GetMask("Terrain"));
+        hitdat.physicalHitPoint = terrainSurfHit ? hit2.point : Vector3.zero;
         hitdat.terrainHitPos = terrainPos;
         hitdat.heightAtFloorPos = tHeight;
         hitdat.floorHitPos = floorHitPos;
@@ -106,7 +110,10 @@ public class VRToolUser : MonoBehaviour {
     private void OnTriggerClicked(object sender, VRTK.ControllerInteractionEventArgs e)
     {
         triggerDown = true;
-        tool.OnMouseDown(0, hitdat, lastdt, toolRadius, placeablePrefab);
+        if(tool != null)
+        {
+            tool.OnMouseDown(0, hitdat, lastdt, toolRadius, placeablePrefab);
+        }
     }
 
     private void OnTriggerUnclicked(object sender, VRTK.ControllerInteractionEventArgs e)
