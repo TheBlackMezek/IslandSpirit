@@ -5,7 +5,9 @@ using UnityEngine;
 public class VRToolUser : MonoBehaviour {
 
     [SerializeField]
-    private GodController godController;
+    private float targetCircleFloatHeight;
+    [SerializeField]
+    private GodToolAbstract[] tools;
     [SerializeField]
     private GameObject placeablePrefab;
     [SerializeField]
@@ -48,7 +50,7 @@ public class VRToolUser : MonoBehaviour {
 
         hitdat.terrain = terrain;
 
-        if (godController.tools.Length > 0)
+        if (tools.Length > 0)
         {
             SetTool(0);
         }
@@ -80,7 +82,7 @@ public class VRToolUser : MonoBehaviour {
 
             targetCircle.gameObject.SetActive(true);
             tHeight = terrain.SampleHeight(hit.point);
-            targetCircle.position = new Vector3(hit.point.x, tHeight + godController.targetCircleFloatHeight, hit.point.z);
+            targetCircle.position = new Vector3(hit.point.x, tHeight + targetCircleFloatHeight, hit.point.z);
             targetCircle.eulerAngles = Vector3.zero;
             targetCircle.localScale = new Vector3(toolRadius * 2, 1, toolRadius * 2);
             if (toolRadius != prevBrushRadius)
@@ -121,7 +123,7 @@ public class VRToolUser : MonoBehaviour {
         triggerDown = false;
         if(tool != null)
         {
-            tool.OnMouseDown(0, hitdat, lastdt, toolRadius, placeablePrefab);
+            tool.OnMouseUp(0, hitdat, lastdt, toolRadius, placeablePrefab);
         }
     }
 
@@ -132,7 +134,7 @@ public class VRToolUser : MonoBehaviour {
             tool.OnToolDeselect();
         }
 
-        tool = godController.tools[idx];
+        tool = tools[idx];
         tool.OnToolSelect(placeablePrefab);
         tool.OnBrushRadiusChange(toolRadius);
     }

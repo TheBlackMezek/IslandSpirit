@@ -147,11 +147,11 @@ public class PersonBrain : MonoBehaviour {
                     house = Instantiate(housePrefab).transform;
                     house.position = hit.transform.root.position;
                     house.eulerAngles = new Vector3(0, Random.Range(0f, 360f));
-                    GodController.Instance.AddPlacedObject(house.gameObject);
+                    WorldManager.Instance.AddPlacedObject(house.gameObject);
                     woodStore -= woodForHouse;
                 }
 
-                GodController.Instance.DeletePlacedObject(hit.transform.root.gameObject);
+                WorldManager.Instance.DeletePlacedObject(hit.transform.root.gameObject);
 
                 walkGoalSource = null;
                 state = PersonState.IDLE;
