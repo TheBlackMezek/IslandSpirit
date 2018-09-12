@@ -7,6 +7,8 @@ public class VRToolUser : MonoBehaviour {
     [SerializeField]
     private float targetCircleFloatHeight;
     [SerializeField]
+    private float targetCylinderExtraHeight;
+    [SerializeField]
     private float radiusIncrementMultiplier;
     [SerializeField]
     private GameObject[] placeableObjects;
@@ -16,6 +18,8 @@ public class VRToolUser : MonoBehaviour {
     private float toolRadius;
     [SerializeField]
     private Transform targetCircle;
+    [SerializeField]
+    private Transform targetCylinder;
     [SerializeField]
     private VRTK.VRTK_ControllerEvents controllerEvents;
     [SerializeField]
@@ -90,6 +94,9 @@ public class VRToolUser : MonoBehaviour {
             targetCircle.position = new Vector3(hit.point.x, tHeight + targetCircleFloatHeight, hit.point.z);
             targetCircle.eulerAngles = Vector3.zero;
             targetCircle.localScale = new Vector3(toolRadius * 2, 1, toolRadius * 2);
+            float cylinderHeight = tHeight / 2f + targetCylinderExtraHeight;
+            targetCylinder.position = new Vector3(hit.point.x, cylinderHeight - targetCylinderExtraHeight / 2f, hit.point.z);
+            targetCylinder.localScale = new Vector3(1, cylinderHeight, 1);
             if (toolRadius != prevBrushRadius)
             {
                 prevBrushRadius = toolRadius;
@@ -116,6 +123,24 @@ public class VRToolUser : MonoBehaviour {
                 tool.OnMouseHeld(0, hitdat, lastdt, toolRadius, placeablePrefab);
             }
         }
+    }
+
+    public void Deactivate()
+    {
+        if(tool != null)
+        {
+            tool.OnToolDeselect();
+        }
+        targetCircle.gameObject.SetActive(false);
+    }
+
+    public void Activate()
+    {
+        if(tool != null)
+        {
+            tool.OnToolSelect(placeablePrefab);
+        }
+        targetCircle.gameObject.SetActive(true);
     }
 
     private void OnTriggerClicked(object sender, VRTK.ControllerInteractionEventArgs e)

@@ -59,6 +59,7 @@ public class VRModeSwitcher : MonoBehaviour {
         for(int i = 0; i < toolUserScripts.Length; ++i)
         {
             toolUserScripts[i].enabled = true;
+            toolUserScripts[i].Activate();
         }
         for (int i = 0; i < pointerRenderers.Length; ++i)
         {
@@ -81,6 +82,7 @@ public class VRModeSwitcher : MonoBehaviour {
         }
         for (int i = 0; i < toolUserScripts.Length; ++i)
         {
+            toolUserScripts[i].Deactivate();
             toolUserScripts[i].enabled = false;
         }
         for (int i = 0; i < pointerRenderers.Length; ++i)

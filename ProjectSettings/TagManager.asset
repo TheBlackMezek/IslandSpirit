@@ -22,7 +22,7 @@ TagManager:
   - PlacableObject
   - Avatar
   - Ghost
-  - 
+  - AlwaysVisible
   - 
   - 
   - 
