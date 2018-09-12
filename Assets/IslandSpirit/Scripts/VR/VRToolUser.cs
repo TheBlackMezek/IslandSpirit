@@ -7,6 +7,9 @@ public class VRToolUser : MonoBehaviour {
     [SerializeField]
     private float targetCircleFloatHeight;
     [SerializeField]
+    private float radiusIncrementMultiplier;
+
+    [SerializeField]
     private GodToolAbstract[] tools;
     [SerializeField]
     private GameObject placeablePrefab;
@@ -141,6 +144,16 @@ public class VRToolUser : MonoBehaviour {
         tool = tools[idx];
         tool.OnToolSelect(placeablePrefab);
         tool.OnBrushRadiusChange(toolRadius);
+    }
+
+    public void IncrementBrushRadius(int dir)
+    {
+        toolRadius += toolRadius * dir * radiusIncrementMultiplier;
+        if(tool != null)
+        {
+            tool.OnBrushRadiusChange(toolRadius);
+            tool.OnMouseScroll(dir * radiusIncrementMultiplier, hitdat, lastdt, toolRadius, placeablePrefab);
+        }
     }
 
 }
