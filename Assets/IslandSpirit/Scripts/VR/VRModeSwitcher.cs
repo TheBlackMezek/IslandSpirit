@@ -14,7 +14,7 @@ public class VRModeSwitcher : MonoBehaviour {
     [SerializeField]
     private VRToolUser[] toolUserScripts;
     [SerializeField]
-    private VRTK.VRTK_Pointer[] pointers;
+    private VRTK.VRTK_StraightPointerRenderer[] pointerRenderers;
 
     [SerializeField]
     private bool startInGodMode = true;
@@ -22,6 +22,15 @@ public class VRModeSwitcher : MonoBehaviour {
     private float godModeScale;
     [SerializeField]
     private float avatarModeScale = 1f;
+
+    [SerializeField]
+    private float godModePointerLineSize;
+    [SerializeField]
+    private float avatarModePointerLineSize;
+    [SerializeField]
+    private VRTK.VRTK_CustomRaycast godModePointerRaycast;
+    [SerializeField]
+    private VRTK.VRTK_CustomRaycast avatarModePointerRaycast;
 
 
 
@@ -51,9 +60,10 @@ public class VRModeSwitcher : MonoBehaviour {
         {
             toolUserScripts[i].enabled = true;
         }
-        for (int i = 0; i < pointers.Length; ++i)
+        for (int i = 0; i < pointerRenderers.Length; ++i)
         {
-            pointers[i].enabled = true;
+            pointerRenderers[i].customRaycast = godModePointerRaycast;
+            pointerRenderers[i].scaleFactor = godModePointerLineSize;
         }
 
         cameraRig.localScale = Vector3.one * godModeScale;
@@ -73,9 +83,10 @@ public class VRModeSwitcher : MonoBehaviour {
         {
             toolUserScripts[i].enabled = false;
         }
-        for (int i = 0; i < pointers.Length; ++i)
+        for (int i = 0; i < pointerRenderers.Length; ++i)
         {
-            pointers[i].enabled = false;
+            pointerRenderers[i].customRaycast = avatarModePointerRaycast;
+            pointerRenderers[i].scaleFactor = avatarModePointerLineSize;
         }
 
         cameraRig.localScale = Vector3.one * avatarModeScale;
