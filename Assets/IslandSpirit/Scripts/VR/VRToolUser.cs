@@ -8,11 +8,10 @@ public class VRToolUser : MonoBehaviour {
     private float targetCircleFloatHeight;
     [SerializeField]
     private float radiusIncrementMultiplier;
-
+    [SerializeField]
+    private GameObject[] placeableObjects;
     [SerializeField]
     private GodToolAbstract[] tools;
-    [SerializeField]
-    private GameObject placeablePrefab;
     [SerializeField]
     private float toolRadius;
     [SerializeField]
@@ -23,6 +22,7 @@ public class VRToolUser : MonoBehaviour {
     private VRTK.VRTK_Pointer pointer;
 
     private Terrain terrain;
+    private GameObject placeablePrefab;
 
     private GodToolAbstract tool;
     private TerrainHitData hitdat = new TerrainHitData();
@@ -57,6 +57,8 @@ public class VRToolUser : MonoBehaviour {
         {
             SetTool(0);
         }
+
+        SetPlaceableObject(0);
     }
     #endregion
 
@@ -154,6 +156,12 @@ public class VRToolUser : MonoBehaviour {
             tool.OnBrushRadiusChange(toolRadius);
             tool.OnMouseScroll(dir * radiusIncrementMultiplier, hitdat, lastdt, toolRadius, placeablePrefab);
         }
+    }
+
+    public void SetPlaceableObject(int idx)
+    {
+        placeablePrefab = WorldManager.Instance.GetPlaceablePrefab(idx);
+        tool.OnSlectedPlacableObjectChange(placeablePrefab);
     }
 
 }

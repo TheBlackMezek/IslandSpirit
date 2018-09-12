@@ -6,6 +6,9 @@ public class WorldManager : MonoBehaviour {
 
     public static WorldManager Instance { get; private set; }
 
+    [SerializeField]
+    private GameObject[] placeableObjects;
+
     private List<Transform>[,] placedObjects;
     private Terrain terrain;
 
@@ -109,6 +112,16 @@ public class WorldManager : MonoBehaviour {
         }
 
         return AddPlacedObject(obj);
+    }
+
+    public GameObject GetPlaceablePrefab(int idx)
+    {
+        return placeableObjects[idx];
+    }
+
+    public int NumberOfPlaceableObjects()
+    {
+        return placeableObjects.Length;
     }
 
 }
