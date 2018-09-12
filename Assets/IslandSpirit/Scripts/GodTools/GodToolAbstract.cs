@@ -7,6 +7,7 @@ public abstract class GodToolAbstract : MonoBehaviour
 
     public string toolName;
     public ParticleSystem particleSystem;
+    public bool usesTargetCylinder;
 
     protected GodController gc;
 

@@ -89,19 +89,26 @@ public class VRToolUser : MonoBehaviour {
             terrainPos = new Vector2(v3pos.x * terrain.terrainData.heightmapWidth,
                                              v3pos.z * terrain.terrainData.heightmapHeight);
 
-            targetCircle.gameObject.SetActive(true);
-            tHeight = terrain.SampleHeight(hit.point);
-            targetCircle.position = new Vector3(hit.point.x, tHeight + targetCircleFloatHeight, hit.point.z);
-            targetCircle.eulerAngles = Vector3.zero;
-            targetCircle.localScale = new Vector3(toolRadius * 2, 1, toolRadius * 2);
-            float cylinderHeight = tHeight / 2f + targetCylinderExtraHeight;
-            targetCylinder.position = new Vector3(hit.point.x, cylinderHeight - targetCylinderExtraHeight / 2f, hit.point.z);
-            targetCylinder.localScale = new Vector3(1, cylinderHeight, 1);
-            if (toolRadius != prevBrushRadius)
+            if(tool.usesTargetCylinder)
             {
-                prevBrushRadius = toolRadius;
-                tool.OnBrushRadiusChange(toolRadius);
+                targetCircle.gameObject.SetActive(true);
+                tHeight = terrain.SampleHeight(hit.point);
+                targetCircle.position = new Vector3(hit.point.x, tHeight + targetCircleFloatHeight, hit.point.z);
+                targetCircle.eulerAngles = Vector3.zero;
+                targetCircle.localScale = new Vector3(toolRadius * 2, 1, toolRadius * 2);
+                float cylinderHeight = tHeight / 2f + targetCylinderExtraHeight;
+                targetCylinder.position = new Vector3(hit.point.x, cylinderHeight - targetCylinderExtraHeight / 2f, hit.point.z);
+                targetCylinder.localScale = new Vector3(1, cylinderHeight, 1);
+                if (toolRadius != prevBrushRadius)
+                {
+                    prevBrushRadius = toolRadius;
+                    tool.OnBrushRadiusChange(toolRadius);
+                }
             }
+        }
+        else
+        {
+            targetCircle.gameObject.SetActive(false);
         }
 
         Ray ray = new Ray(transform.position, transform.forward);
@@ -171,6 +178,15 @@ public class VRToolUser : MonoBehaviour {
         tool = tools[idx];
         tool.OnToolSelect(placeablePrefab);
         tool.OnBrushRadiusChange(toolRadius);
+
+        if(tool.usesTargetCylinder)
+        {
+            targetCircle.gameObject.SetActive(true);
+        }
+        else
+        {
+            targetCircle.gameObject.SetActive(false);
+        }
     }
 
     public void IncrementBrushRadius(int dir)
