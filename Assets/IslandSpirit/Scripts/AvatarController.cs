@@ -19,7 +19,11 @@ public class AvatarController : MonoBehaviour
     private float camDist;
     private float yvel = 0;
 
+    [SerializeField]
+    [HideInInspector]
     private CharacterController cc;
+    [SerializeField]
+    [HideInInspector]
     private Animator animator;
 
     private bool onGround = false;
@@ -71,7 +75,7 @@ public class AvatarController : MonoBehaviour
 
         Vector3 moveVec = (camera.forward * Input.GetAxis("ForeBack")
               + camera.right * Input.GetAxis("Horizontal")).normalized * Time.deltaTime * moveSpeed;
-        moveVec.y = yvel;
+        moveVec.y = yvel * Time.deltaTime;
         cc.Move(moveVec);
 
         if(transform.position.y < 0)
@@ -101,8 +105,8 @@ public class AvatarController : MonoBehaviour
         if (Input.GetMouseButton(1))
         {
             Cursor.lockState = CursorLockMode.Locked;
-            camRotY +=  Input.GetAxis("Mouse X") * lookSensitivity * Time.deltaTime;
-            camRotX += -Input.GetAxis("Mouse Y") * lookSensitivity * Time.deltaTime;
+            camRotY +=  Input.GetAxis("Mouse X") * lookSensitivity;// * Time.deltaTime;
+            camRotX += -Input.GetAxis("Mouse Y") * lookSensitivity;// * Time.deltaTime;
             camRotX = Mathf.Clamp(camRotX, -90f, 90f);
         }
         else

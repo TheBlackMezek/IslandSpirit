@@ -6,6 +6,8 @@ public class TerrainResetter : MonoBehaviour {
 
     public float baseHeight;
 
+    [SerializeField]
+    [HideInInspector]
     private Terrain terrain;
 
 

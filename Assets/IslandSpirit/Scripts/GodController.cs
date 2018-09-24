@@ -27,11 +27,19 @@ public class GodController : MonoBehaviour {
     public Transform placableObjectButtonPanel;
 
     private float xRotOffset = 0;
+    [SerializeField]
+    [HideInInspector]
     private Terrain terrain;
+    [SerializeField]
+    [HideInInspector]
     private Transform targetCircle;
     private float prevRadius = float.MinValue;
 
+    [SerializeField]
+    [HideInInspector]
     private GodToolAbstract activeTool;
+    [SerializeField]
+    [HideInInspector]
     private GameObject activeToolUI;
     private float toolRadius;
     private GameObject selectedObject;
@@ -194,8 +202,8 @@ public class GodController : MonoBehaviour {
         {
             Cursor.lockState = CursorLockMode.Locked;
             transform.eulerAngles += Vector3.up * Input.GetAxis("Mouse X")
-                                   * lookSensitivity * Time.deltaTime;
-            xRotOffset += -Input.GetAxis("Mouse Y") * lookSensitivity * Time.deltaTime;
+                                   * lookSensitivity;// * Time.deltaTime;
+            xRotOffset += -Input.GetAxis("Mouse Y") * lookSensitivity;// * Time.deltaTime;
             xRotOffset = Mathf.Clamp(xRotOffset, -90f, 90f);
             transform.eulerAngles = new Vector3(xRotOffset, transform.eulerAngles.y, transform.eulerAngles.z);
         }

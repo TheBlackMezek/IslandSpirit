@@ -7,6 +7,8 @@ public class ModeSwitcher : MonoBehaviour {
     public GameObject godCam;
     public GameObject avatar;
 
+    [SerializeField]
+    [HideInInspector]
     private Terrain terrain;
 
 

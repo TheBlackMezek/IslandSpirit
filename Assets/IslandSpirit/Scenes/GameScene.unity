@@ -450,6 +450,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   godCam: {fileID: 2055585191}
   avatar: {fileID: 1138915967}
+  terrain: {fileID: 1096761036}
 --- !u!4 &130563296
 Transform:
   m_ObjectHideFlags: 0
@@ -12866,6 +12867,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseHeight: 0.02
+  terrain: {fileID: 1096761036}
 --- !u!114 &1096761039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12880,6 +12882,11 @@ MonoBehaviour:
 --- !u!1 &1138915967 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: 7657114722f461b4090d4fb1fb3c2234, type: 3}
+  m_PrefabInternal: {fileID: 749987239}
+--- !u!95 &1138915968 stripped
+Animator:
+  m_PrefabParentObject: {fileID: 9500000, guid: 7657114722f461b4090d4fb1fb3c2234,
+    type: 3}
   m_PrefabInternal: {fileID: 749987239}
 --- !u!143 &1138915969
 CharacterController:
@@ -12910,13 +12917,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camera: {fileID: 265377209}
-  lookSensitivity: 200
+  lookSensitivity: 2
   initialCamDist: 5
   heightOffset: 1.5
   moveSpeed: 10
-  jumpSpeed: 1
-  gravity: -1
+  jumpSpeed: 25
+  gravity: -50
   fallTimeTillAnimate: 1
+  cc: {fileID: 1138915969}
+  animator: {fileID: 1138915968}
 --- !u!1 &1145095433
 GameObject:
   m_ObjectHideFlags: 0
@@ -18092,7 +18101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64820b94c01883541b34dd5c2889a40d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lookSensitivity: 150
+  lookSensitivity: 1.5
   moveSpeed: 20
   toolStartRadius: 5
   toolRadiusScrollMult: 1
@@ -18126,6 +18135,10 @@ MonoBehaviour:
   placableObjectButtonPrefab: {fileID: 1324445676220688, guid: 3a9cb8692eb630349bc3059b1913c98c,
     type: 2}
   placableObjectButtonPanel: {fileID: 1346402796}
+  terrain: {fileID: 1096761036}
+  targetCircle: {fileID: 1550095046}
+  activeTool: {fileID: 842312616}
+  activeToolUI: {fileID: 0}
 --- !u!4 &2055585194
 Transform:
   m_ObjectHideFlags: 0

@@ -4,4 +4,7 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/IslandSpirit/Scenes/GameScene.unity
+    guid: cc400018427c48743a6510ee9f5719c6
